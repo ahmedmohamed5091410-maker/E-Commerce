@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login | Luxe</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="responsive.css">
+  <style>
+    .auth-container {
+      max-width: 400px;
+      margin: 4rem auto;
+    }
+    .auth-card {
+      background: var(--surface-color);
+      padding: var(--spacing-xxl);
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-lg);
+    }
+    .auth-title {
+      text-align: center;
+      margin-bottom: var(--spacing-xl);
+    }
+  </style>
+</head>
+<body>
+  
+  <header class="header">
+    <div class="container flex-between navbar">
+      <a href="index.html" class="logo"><h2>Luxe.</h2></a>
+      <a href="products.html" style="color: var(--text-secondary);">Continue Shopping</a>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="auth-container animate-slide-up">
+      <div class="auth-card">
+        <h2 class="auth-title">Welcome Back</h2>
+        
+        <form id="login-form">
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <input type="email" id="email" class="form-control" required placeholder="name@example.com">
+          </div>
+          
+          <div class="form-group" style="position: relative;">
+            <div class="flex-between" style="margin-bottom: var(--spacing-xs);">
+              <label class="form-label" style="margin: 0;">Password</label>
+              <a href="#" style="font-size: 0.8rem; color: var(--accent-color);">Forgot Password?</a>
+            </div>
+            <input type="password" id="password" class="form-control" required placeholder="••••••••">
+            <button type="button" id="toggle-pwd" style="position: absolute; right: 10px; bottom: 10px; background: none; border: none; cursor: pointer;">👁️</button>
+          </div>
+          
+          <div class="form-group" style="display: flex; align-items: center; gap: 0.5rem; margin: 1.5rem 0;">
+            <input type="checkbox" id="remember">
+            <label for="remember" style="font-size: 0.9rem; color: var(--text-secondary);">Remember me</label>
+          </div>
+          
+          <button type="submit" id="submit-btn" class="btn btn-primary" style="width: 100%; margin-bottom: 1.5rem;">Sign In</button>
+          
+          <p style="text-align: center; color: var(--text-secondary); font-size: 0.9rem;">
+            Don't have an account? <a href="register.html" style="color: var(--accent-color); font-weight: 500;">Sign up</a>
+          </p>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <script type="module" src="app.js"></script>
+  <script type="module">
+    import { Auth } from './auth.js';
+    import { showToast } from './utils.js';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // Redirect if already logged in
+      if (Auth.isAuthenticated()) {
+        window.location.href = 'profile.html';
+      }
+
+      const togglePwd = document.getElementById('toggle-pwd');
+      const pwdInput = document.getElementById('password');
+      
+      togglePwd.addEventListener('click', () => {
+        if (pwdInput.type === 'password') {
+          pwdInput.type = 'text';
+          togglePwd.textContent = '🙈';
+        } else {
+          pwdInput.type = 'password';
+          togglePwd.textContent = '👁️';
+        }
+      });
+
+      document.getElementById('login-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const email = document.getElementById('email').value;
+        const password = pwdInput.value;
+        const btn = document.getElementById('submit-btn');
+        
+        btn.innerHTML = '<span class="spinner" style="width: 20px; height: 20px;"></span>';
+        btn.disabled = true;
+
+        try {
+          await Auth.login(email, password);
+          showToast('Login successful!', 'success');
+          setTimeout(() => { window.location.href = 'profile.html'; }, 1000);
+        } catch (error) {
+          showToast(error.message, 'error');
+          btn.innerHTML = 'Sign In';
+          btn.disabled = false;
+        }
+      });
+    });
+  </script>
+</body>
+</html>

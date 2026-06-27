@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Details | Luxe</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="responsive.css">
+  <style>
+    .product-details-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--spacing-xxl);
+      margin: var(--spacing-xxl) 0;
+    }
+    .product-image-large-wrap {
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      background: var(--surface-color);
+      padding: var(--spacing-xl);
+      border: 1px solid var(--border-color);
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: crosshair;
+    }
+    .product-image-large-wrap img {
+      max-height: 100%;
+      object-fit: contain;
+      transition: transform 0.2s ease;
+    }
+    .qty-selector {
+      display: flex;
+      align-items: center;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-full);
+      overflow: hidden;
+      width: fit-content;
+    }
+    .qty-btn {
+      background: var(--surface-color);
+      border: none;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      font-size: 1.2rem;
+      color: var(--text-primary);
+    }
+    .qty-btn:hover { background: var(--border-color); }
+    .qty-input {
+      width: 50px;
+      text-align: center;
+      border: none;
+      background: transparent;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    .product-actions {
+      display: flex;
+      gap: var(--spacing-md);
+      margin-top: var(--spacing-xl);
+      flex-wrap: wrap;
+    }
+    .meta-item {
+      display: flex;
+      gap: 10px;
+      margin-bottom: var(--spacing-sm);
+      color: var(--text-secondary);
+    }
+  </style>
+</head>
+<body>
+  
+  <header class="header">
+    <div class="container flex-between navbar">
+      <a href="index.html" class="logo"><h2>Luxe.</h2></a>
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="products.html">Shop</a>
+        <a href="index.html#categories">Categories</a>
+      </nav>
+      <div class="nav-actions">
+        <button id="theme-toggle" class="icon-btn">🌙</button>
+        <a href="wishlist.html" class="icon-btn">❤️<span id="wishlist-badge" class="badge" style="display: none;">0</span></a>
+        <a href="cart.html" class="icon-btn">🛒<span id="cart-badge" class="badge" style="display: none;">0</span></a>
+        <a href="login.html" id="user-icon" class="icon-btn">👤</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container product-container animate-fade-in">
+    <div class="product-details-grid">
+      <!-- Image Gallery -->
+      <div class="product-gallery">
+        <div class="product-image-large-wrap">
+          <img id="main-product-image" src="" alt="Loading...">
+        </div>
+      </div>
+
+      <!-- Product Info -->
+      <div class="product-info-detailed">
+        <span id="product-category" style="text-transform: uppercase; color: var(--accent-color); font-weight: 600; font-size: 0.85rem;"></span>
+        <h1 id="product-title" style="margin: 0.5rem 0;">Loading...</h1>
+        
+        <div id="product-rating" style="margin-bottom: 1.5rem; font-size: 0.9rem;"></div>
+        
+        <div id="product-price" style="font-size: 2rem; font-weight: 700; margin-bottom: 2rem; color: var(--primary-color);"></div>
+        
+        <p id="product-description" style="line-height: 1.8; margin-bottom: 2rem;"></p>
+        
+        <div class="meta-item">
+          <strong>Availability:</strong> <span style="color: var(--success-color);">In Stock</span>
+        </div>
+
+        <div style="margin-top: 2rem;">
+          <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Quantity</label>
+          <div class="qty-selector">
+            <button id="qty-minus" class="qty-btn">-</button>
+            <input type="number" id="qty-input" class="qty-input" value="1" min="1">
+            <button id="qty-plus" class="qty-btn">+</button>
+          </div>
+        </div>
+
+        <div class="product-actions">
+          <button id="add-to-cart-btn" class="btn btn-primary" style="flex: 1; padding: 1rem;">Add to Cart</button>
+          <button id="wishlist-btn" class="btn btn-outline" style="flex: 1; padding: 1rem;">🤍 Add to Wishlist</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Related Products -->
+    <section id="related-section" style="margin-top: 5rem; margin-bottom: 5rem;">
+      <h2 style="margin-bottom: 2rem;">You Might Also Like</h2>
+      <div id="related-products" class="grid products-grid" style="grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));">
+        <!-- JS injects related here -->
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container"><div class="footer-bottom"><p>&copy; 2026 Luxe E-Commerce. All rights reserved.</p></div></div>
+  </footer>
+
+  <script type="module" src="app.js"></script>
+  <script type="module" src="product.js"></script>
+</body>
+</html>

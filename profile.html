@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Profile | Luxe</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="responsive.css">
+  <style>
+    .profile-layout {
+      display: grid;
+      grid-template-columns: 250px 1fr;
+      gap: var(--spacing-xl);
+      margin: var(--spacing-xl) 0 4rem;
+    }
+    .profile-sidebar {
+      background: var(--surface-color);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-color);
+      padding: var(--spacing-lg);
+      height: fit-content;
+    }
+    .profile-avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: var(--accent-color);
+      color: white;
+      font-size: 2rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto var(--spacing-md);
+    }
+    @media (max-width: 768px) {
+      .profile-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  
+  <header class="header">
+    <div class="container flex-between navbar">
+      <a href="index.html" class="logo"><h2>Luxe.</h2></a>
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="products.html">Shop</a>
+      </nav>
+      <div class="nav-actions">
+        <button id="theme-toggle" class="icon-btn">🌙</button>
+        <a href="wishlist.html" class="icon-btn">❤️<span id="wishlist-badge" class="badge" style="display: none;">0</span></a>
+        <a href="cart.html" class="icon-btn">🛒<span id="cart-badge" class="badge" style="display: none;">0</span></a>
+        <a href="profile.html" id="user-icon" class="icon-btn" style="color: var(--accent-color);">👤</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <h1 style="margin-top: 2rem;">My Account</h1>
+    
+    <div class="profile-layout animate-slide-up">
+      <!-- Sidebar -->
+      <aside class="profile-sidebar">
+        <div style="text-align: center; margin-bottom: 2rem;">
+          <div class="profile-avatar" id="user-initial">U</div>
+          <h3 id="user-name">Loading...</h3>
+          <p id="user-email" style="color: var(--text-secondary); font-size: 0.9rem;"></p>
+        </div>
+        
+        <ul style="border-top: 1px solid var(--border-color); padding-top: 1rem;">
+          <li style="margin-bottom: 1rem;"><a href="#orders" style="font-weight: 500; color: var(--accent-color);">Order History</a></li>
+          <li style="margin-bottom: 1rem;"><a href="wishlist.html">My Wishlist</a></li>
+          <li style="margin-bottom: 1rem;"><a href="#">Account Settings</a></li>
+        </ul>
+        
+        <button id="logout-btn" class="btn btn-outline" style="width: 100%; margin-top: 2rem; color: var(--error-color); border-color: var(--error-color);">Log Out</button>
+      </aside>
+
+      <!-- Content -->
+      <div class="profile-content">
+        <h2 style="margin-bottom: 1.5rem;" id="orders">Order History</h2>
+        <div id="orders-container">
+          <!-- Orders injected by JS -->
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container"><div class="footer-bottom"><p>&copy; 2026 Luxe E-Commerce. All rights reserved.</p></div></div>
+  </footer>
+
+  <script type="module" src="app.js"></script>
+  <script type="module" src="profile.js"></script>
+</body>
+</html>

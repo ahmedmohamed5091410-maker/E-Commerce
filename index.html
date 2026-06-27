@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Luxe | Premium E-Commerce</title>
+  <meta name="description" content="A premium e-commerce experience">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="responsive.css">
+</head>
+<body>
+  
+  <!-- Header -->
+  <header class="header">
+    <div class="container flex-between navbar">
+      <a href="index.html" class="logo">
+        <h2>Luxe.</h2>
+      </a>
+      
+      <nav class="nav-links">
+        <a href="index.html" class="active">Home</a>
+        <a href="products.html">Shop</a>
+        <a href="index.html#categories">Categories</a>
+        <a href="#footer">About</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button id="theme-toggle" class="icon-btn">🌙</button>
+        <a href="wishlist.html" class="icon-btn">
+          ❤️
+          <span id="wishlist-badge" class="badge" style="display: none;">0</span>
+        </a>
+        <a href="cart.html" class="icon-btn">
+          🛒
+          <span id="cart-badge" class="badge" style="display: none;">0</span>
+        </a>
+        <a href="login.html" id="user-icon" class="icon-btn">👤</a>
+        
+        <button class="mobile-menu-btn">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section container reveal" style="padding: 4rem 0; display: flex; align-items: center; justify-content: space-between; gap: 2rem;">
+    <div class="hero-content" style="max-width: 50%;">
+      <h1 class="animate-slide-up" style="margin-bottom: 1rem; font-size: 3.5rem;">Elevate Your Style.</h1>
+      <p class="animate-slide-up" style="animation-delay: 0.1s; font-size: 1.25rem; margin-bottom: 2rem;">Discover the latest trends in fashion and electronics. Premium quality, curated just for you.</p>
+      <a href="products.html" class="btn btn-primary animate-slide-up" style="animation-delay: 0.2s; padding: 1rem 2rem; font-size: 1.1rem;">Shop Now</a>
+    </div>
+    <div class="hero-image animate-fade-in" style="animation-delay: 0.3s; flex: 1;">
+      <!-- Placeholder image for hero -->
+      <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=800&q=80" alt="Fashion Model" style="border-radius: var(--radius-xl); box-shadow: var(--shadow-lg);">
+    </div>
+  </section>
+
+  <!-- Featured Categories -->
+  <section id="categories" class="container reveal" style="padding: 4rem 0;">
+    <h2 style="text-align: center;">Shop by Category</h2>
+    <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); margin-top: 2rem;">
+      <a href="products.html?category=electronics" class="card" style="padding: 2rem; text-align: center; justify-content: center;">
+        <span style="font-size: 3rem; margin-bottom: 1rem;">💻</span>
+        <h3>Electronics</h3>
+      </a>
+      <a href="products.html?category=jewelery" class="card" style="padding: 2rem; text-align: center; justify-content: center;">
+        <span style="font-size: 3rem; margin-bottom: 1rem;">💍</span>
+        <h3>Jewelery</h3>
+      </a>
+      <a href="products.html?category=men's clothing" class="card" style="padding: 2rem; text-align: center; justify-content: center;">
+        <span style="font-size: 3rem; margin-bottom: 1rem;">👔</span>
+        <h3>Men's Clothing</h3>
+      </a>
+      <a href="products.html?category=women's clothing" class="card" style="padding: 2rem; text-align: center; justify-content: center;">
+        <span style="font-size: 3rem; margin-bottom: 1rem;">👗</span>
+        <h3>Women's Clothing</h3>
+      </a>
+    </div>
+  </section>
+
+  <!-- Popular Products Preview -->
+  <section class="container reveal" style="padding: 4rem 0;">
+    <div class="flex-between" style="margin-bottom: 2rem;">
+      <h2>Trending Now</h2>
+      <a href="products.html" class="btn btn-outline">View All</a>
+    </div>
+    <div id="home-products-grid" class="grid products-grid" style="grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));">
+      <!-- Products loaded via JS -->
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer id="footer" class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h3>Luxe.</h3>
+          <p style="margin-top: 1rem;">Your ultimate destination for premium lifestyle products.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Shop</h4>
+          <ul class="footer-links">
+            <li><a href="#">New Arrivals</a></li>
+            <li><a href="#">Best Sellers</a></li>
+            <li><a href="#">Sale</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Support</h4>
+          <ul class="footer-links">
+            <li><a href="#">Contact Us</a></li>
+            <li><a href="#">Shipping Policy</a></li>
+            <li><a href="#">Returns</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Newsletter</h4>
+          <p>Subscribe to get special offers and updates.</p>
+          <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
+            <input type="email" class="form-control" placeholder="Enter email">
+            <button class="btn btn-primary">Subscribe</button>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Luxe E-Commerce. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <button id="back-to-top" class="back-to-top">↑</button>
+
+  <script type="module" src="app.js"></script>
+  <script type="module">
+    import { API } from './api.js';
+    import { formatCurrency, generateSkeleton } from './utils.js';
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      const grid = document.getElementById('home-products-grid');
+      // Show skeletons
+      grid.innerHTML = Array(4).fill(0).map(() => generateSkeleton()).join('');
+      
+      try {
+        const products = await API.getLimitedProducts(4);
+        grid.innerHTML = products.map(product => `
+          <div class="card animate-fade-in">
+            <a href="product.html?id=${product.id}" class="product-image-wrap">
+              <img src="${product.image}" alt="${product.title}" loading="lazy" class="product-image">
+            </a>
+            <div class="product-info">
+              <h3 class="product-title" title="${product.title}">${product.title}</h3>
+              <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                <span style="color: var(--warning-color);">★</span>
+                <span>${product.rating.rate} (${product.rating.count})</span>
+              </div>
+              <div class="flex-between">
+                <span class="product-price">${formatCurrency(product.price)}</span>
+                <a href="product.html?id=${product.id}" class="btn btn-primary" style="padding: 0.5rem 1rem;">View</a>
+              </div>
+            </div>
+          </div>
+        `).join('');
+      } catch (error) {
+        grid.innerHTML = '<p>Error loading products.</p>';
+      }
+    });
+  </script>
+</body>
+</html>

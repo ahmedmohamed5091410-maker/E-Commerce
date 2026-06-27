@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register | Luxe</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="responsive.css">
+  <style>
+    .auth-container {
+      max-width: 450px;
+      margin: 4rem auto;
+    }
+    .auth-card {
+      background: var(--surface-color);
+      padding: var(--spacing-xxl);
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-lg);
+    }
+    .auth-title {
+      text-align: center;
+      margin-bottom: var(--spacing-xl);
+    }
+    .pwd-strength {
+      height: 4px;
+      background: var(--border-color);
+      border-radius: 2px;
+      margin-top: 5px;
+      overflow: hidden;
+      transition: all 0.3s;
+    }
+    .pwd-strength div {
+      height: 100%;
+      width: 0%;
+      transition: all 0.3s;
+    }
+  </style>
+</head>
+<body>
+  
+  <header class="header">
+    <div class="container flex-between navbar">
+      <a href="index.html" class="logo"><h2>Luxe.</h2></a>
+      <a href="products.html" style="color: var(--text-secondary);">Continue Shopping</a>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="auth-container animate-slide-up">
+      <div class="auth-card">
+        <h2 class="auth-title">Create Account</h2>
+        
+        <form id="register-form">
+          <div class="form-group">
+            <label class="form-label">Full Name</label>
+            <input type="text" id="name" class="form-control" required placeholder="John Doe">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <input type="email" id="email" class="form-control" required placeholder="name@example.com">
+          </div>
+          
+          <div class="form-group" style="position: relative;">
+            <label class="form-label">Password</label>
+            <input type="password" id="password" class="form-control" required placeholder="At least 6 characters">
+            <button type="button" id="toggle-pwd" style="position: absolute; right: 10px; bottom: 20px; background: none; border: none; cursor: pointer;">👁️</button>
+            <div class="pwd-strength"><div id="strength-bar"></div></div>
+            <span id="strength-text" style="font-size: 0.75rem; color: var(--text-secondary); display: block; margin-top: 5px;"></span>
+          </div>
+          
+          <button type="submit" id="submit-btn" class="btn btn-primary" style="width: 100%; margin: 1.5rem 0;">Create Account</button>
+          
+          <p style="text-align: center; color: var(--text-secondary); font-size: 0.9rem;">
+            Already have an account? <a href="login.html" style="color: var(--accent-color); font-weight: 500;">Sign in</a>
+          </p>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <script type="module" src="app.js"></script>
+  <script type="module">
+    import { Auth } from './auth.js';
+    import { showToast } from './utils.js';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      if (Auth.isAuthenticated()) window.location.href = 'profile.html';
+
+      const togglePwd = document.getElementById('toggle-pwd');
+      const pwdInput = document.getElementById('password');
+      const strengthBar = document.getElementById('strength-bar');
+      const strengthText = document.getElementById('strength-text');
+      
+      togglePwd.addEventListener('click', () => {
+        if (pwdInput.type === 'password') {
+          pwdInput.type = 'text';
+          togglePwd.textContent = '🙈';
+        } else {
+          pwdInput.type = 'password';
+          togglePwd.textContent = '👁️';
+        }
+      });
+
+      // Password Strength logic
+      pwdInput.addEventListener('input', (e) => {
+        const val = e.target.value;
+        let strength = 0;
+        
+        if (val.length >= 6) strength++;
+        if (val.match(/[A-Z]/)) strength++;
+        if (val.match(/[0-9]/)) strength++;
+        if (val.match(/[^A-Za-z0-9]/)) strength++;
+
+        if (val.length === 0) {
+          strengthBar.style.width = '0%';
+          strengthText.textContent = '';
+        } else if (strength <= 1) {
+          strengthBar.style.width = '33%';
+          strengthBar.style.background = 'var(--error-color)';
+          strengthText.textContent = 'Weak';
+        } else if (strength === 2) {
+          strengthBar.style.width = '66%';
+          strengthBar.style.background = 'var(--warning-color)';
+          strengthText.textContent = 'Medium';
+        } else {
+          strengthBar.style.width = '100%';
+          strengthBar.style.background = 'var(--success-color)';
+          strengthText.textContent = 'Strong';
+        }
+      });
+
+      document.getElementById('register-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const password = pwdInput.value;
+        const btn = document.getElementById('submit-btn');
+        
+        if (password.length < 6) {
+          showToast('Password must be at least 6 characters long', 'warning');
+          return;
+        }
+        
+        btn.innerHTML = '<span class="spinner" style="width: 20px; height: 20px;"></span>';
+        btn.disabled = true;
+
+        try {
+          await Auth.register(name, email, password);
+          showToast('Account created successfully!', 'success');
+          setTimeout(() => { window.location.href = 'profile.html'; }, 1000);
+        } catch (error) {
+          showToast(error.message, 'error');
+          btn.innerHTML = 'Create Account';
+          btn.disabled = false;
+        }
+      });
+    });
+  </script>
+</body>
+</html>
